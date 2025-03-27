@@ -3,19 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My News Blog</title>
+    <title>Rekters - Breaking News, Breaking Hearts</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>My News Blog</h1>
-        <input type="text" id="search" placeholder="Search posts...">
-        <div id="tags"></div>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="logo">
+                <span class="logo-text">REKTERS</span>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Breaking News</a>
+            <a href="#">Markets</a>
+            <a href="#">Technology</a>
+            <a href="#">Politics</a>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search news...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div id="tags" class="tags-container"></div>
     </header>
-    <main id="post-list">
-        <h2>Latest Posts</h2>
-        <!-- Posts will be loaded here by JS -->
+
+    <main>
+        <div class="main-content">
+            <section class="featured-post">
+                <h2>Featured Story</h2>
+                <div id="featured-content"></div>
+            </section>
+
+            <section class="posts-section">
+                <h2>Latest Rekts</h2>
+                <div id="post-list" class="post-grid"></div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Latest News</h3>
+                <div class="sidebar-news">
+                    <a href="posts/ai-post.html" class="sidebar-news-item">
+                        <h4>AI Declares Itself Too Smart for Humans, Refuses to Work</h4>
+                        <div class="meta">
+                            <span><i class="far fa-clock"></i> 2 hours ago</span>
+                        </div>
+                    </a>
+                    <a href="posts/politics-post.html" class="sidebar-news-item">
+                        <h4>Congressional Hearing Descends into Chaos as AI Robot Refuses to Answer Questions</h4>
+                        <div class="meta">
+                            <span><i class="far fa-clock"></i> 4 hours ago</span>
+                        </div>
+                    </a>
+                    <a href="posts/first-post.html" class="sidebar-news-item">
+                        <h4>Bitcoin Plunges 99% as Satoshi's Cat Sells All Holdings</h4>
+                        <div class="meta">
+                            <span><i class="far fa-clock"></i> 6 hours ago</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </aside>
     </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Rekters</h3>
+                <p>Your trusted source for the latest market crashes, tech fails, and political disasters.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Rekters. All rights rekt.</p>
+        </div>
+    </footer>
+
     <script src="js/script.js"></script>
 </body>
 </html>
