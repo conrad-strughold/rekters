@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
 :root {
     --bg-primary: #1a1a1a;
     --bg-secondary: #2d2d2d;
@@ -164,4 +166,15 @@ body.light-theme {
     .article-content {
         font-size: 1rem;
     }
+}
+
+.logo-link {
+    text-decoration: none;
+    color: var(--accent-color);
+}
+
+.logo-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: var(--accent-color);
 } 
