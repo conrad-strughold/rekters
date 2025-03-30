@@ -44,6 +44,67 @@
   ]
 }
 
+  ,
   
+    {
+    "slug": "trump-tariffs-crypto-market",
+    "title": "Trump's Trade War Pressures Crypto Market as April 2 Tariffs Loom",
+    "category": "News",
+    "date": "2025-03-30",
+    "readTime": "2 min",
+    "tags": ["Trump", "Trade War", "Crypto Market", "Tariffs"],
+    "content": [
+      "In a move that's sure to surprise absolutely no one, President Trump has announced new tariffs set to take effect on April 2, sending shockwaves through both traditional and crypto markets. Because nothing says 'economic stability' like a good old-fashioned trade war.",
+      "Bitcoin and stocks are feeling the pressure as investors scramble to make sense of the latest geopolitical chess moves. It's almost as if basing your investment strategy on the whims of a reality TV star-turned-politician isn't the most solid plan."
+    ]
+  },
+  {
+    "slug": "crypto-trader-pepe-profit",
+    "title": "Crypto Trader Turns $2K PEPE into $43M, Sells for $10M Profit",
+    "category": "News",
+    "date": "2025-03-30",
+    "readTime": "2 min",
+    "tags": ["Crypto Trader", "PEPE", "Profit", "Memecoins"],
+    "content": [
+      "In today's episode of 'Why Didn't I Think of That?', a savvy crypto trader managed to turn a $2,000 investment in PEPE memecoins into a staggering $43 million. Naturally, they cashed out a mere $10 million, because who needs life-changing wealth when you can HODL for more imaginary gains?",
+      "As memecoins continue to mint new crypto millionaires, the rest of us are left wondering if we should abandon all reason and start investing in digital frogs. Financial advisors everywhere are collectively facepalming."
+    ]
+  },
+  {
+    "slug": "stablecoin-regulation-us",
+    "title": "Stablecoin Rules Needed in US Before Crypto Tax Reform, Experts Say",
+    "category": "News",
+    "date": "2025-03-30",
+    "readTime": "2 min",
+    "tags": ["Stablecoin", "Regulation", "US", "Crypto Tax"],
+    "content": [
+      "Crypto industry professionals are calling for clearer regulations on stablecoins and banking relationships before lawmakers dive into tax reform. Because nothing screams 'innovation' like waiting for bureaucrats to catch up with a technology that's been around for over a decade.",
+      "With the Trump administration's newfound enthusiasm for crypto, experts are hopeful that rational regulation is on the horizon. Meanwhile, the rest of us will continue to navigate the murky waters of crypto taxation with the guidance of Reddit forums and sheer guesswork."
+    ]
+  },
+  {
+    "slug": "vitalik-buterin-meows",
+    "title": "Vitalik Buterin Meows at a Robot, and the Crypto World Loses It",
+    "category": "News",
+    "date": "2025-03-30",
+    "readTime": "2 min",
+    "tags": ["Vitalik Buterin", "Robot", "Ethereum", "Viral Video"],
+    "content": [
+      "Ethereum co-founder Vitalik Buterin was recently caught on video kneeling before a robot and emitting a 'meow' sound, sending the crypto community into a frenzy. Because when the future of decentralized finance rests in the hands of a man who communicates with machines via cat noises, what could possibly go wrong?",
+      "Commentators are speculating on the profound implications of this interaction, while the rest of us are left questioning our life choices and investment strategies. Perhaps it's time to start taking advice from our pets."
+    ]
+  },
+  {
+    "slug": "kalshi-sues-gaming-regulators",
+    "title": "Kalshi Sues Nevada and New Jersey Gaming Regulators",
+    "category": "News",
+    "date": "2025-03-30",
+    "readTime": "2 min",
+    "tags": ["Kalshi", "Lawsuit", "Gaming Regulators", "Prediction Markets"],
+    "content": [
+      "Onchain prediction market Kalshi has filed lawsuits against gaming regulators in Nevada and New Jersey after receiving cease and desist orders for its sports event contracts. Apparently, offering a platform for people to hedge against market risks is a big no-no in the land of the free.",
+      "Kalshi argues that their event contracts are distinct from traditional gambling, but regulators remain unconvinced. Perhaps if they rebranded as a memecoin casino, they'd receive a warmer welcome."
+    ]
+  }
   
 ]

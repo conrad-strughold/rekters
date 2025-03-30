@@ -125,16 +125,32 @@ const remoteImages = [
     'https://www.rekters.com/images/image9.png'
 ];
 
-// Function to get a random cover image for featured article
+// Sets to track available images
+let availableCoverImages = new Set(featuredCoverImages);
+let availableRemoteImages = new Set(remoteImages);
+
+// Function to get a random cover image for featured article without repetition
 function getRandomCoverImage() {
-    const randomIndex = Math.floor(Math.random() * featuredCoverImages.length);
-    return featuredCoverImages[randomIndex];
+    if (availableCoverImages.size === 0) {
+        availableCoverImages = new Set(featuredCoverImages); // Reset if exhausted
+    }
+    const imagesArray = Array.from(availableCoverImages);
+    const randomIndex = Math.floor(Math.random() * imagesArray.length);
+    const selectedImage = imagesArray[randomIndex];
+    availableCoverImages.delete(selectedImage); // Remove from available pool
+    return selectedImage;
 }
 
-// Function to get a random remote image for other sections
+// Function to get a random remote image for other sections without repetition
 function getRandomImage() {
-    const randomIndex = Math.floor(Math.random() * remoteImages.length);
-    return remoteImages[randomIndex];
+    if (availableRemoteImages.size === 0) {
+        availableRemoteImages = new Set(remoteImages); // Reset if exhausted
+    }
+    const imagesArray = Array.from(availableRemoteImages);
+    const randomIndex = Math.floor(Math.random() * imagesArray.length);
+    const selectedImage = imagesArray[randomIndex];
+    availableRemoteImages.delete(selectedImage); // Remove from available pool
+    return selectedImage;
 }
 
 // Function to generate featured story HTML using cover images
@@ -268,7 +284,7 @@ if (!fs.existsSync(postsDir)) {
 articles.forEach(article => {
     const html = generateArticleHtml(article);
     const filePath = path.join(postsDir, `${article.slug}.html`);
-    fs.writeFileSync(filePath, html, 'utf8'); // Correct encoding
+    fs.writeFileSync(filePath, html, 'utf8');
 });
 
 // Update or create index.html
@@ -366,7 +382,7 @@ if (!updatedHtml.includes(`<h3>${featuredArticle.title}</h3>`)) {
 }
 
 // Write the updated index.html back to disk
-fs.writeFileSync(indexPath, updatedHtml, 'utf8'); // Correct encoding
+fs.writeFileSync(indexPath, updatedHtml, 'utf8');
 
 console.log('HTML files generated and index.html updated successfully.');
 console.log('Featured article:', featuredArticle.title);
