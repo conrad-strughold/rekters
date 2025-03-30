@@ -251,7 +251,7 @@ main {
 }
 
 .featured-post {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .post-grid {
@@ -349,8 +349,8 @@ main {
     color: inherit;
     background-color: var(--card-bg);
     border-radius: 8px;
-    padding: 2rem;
-    margin: 2rem auto;
+    padding: 0rem;
+    margin: 1rem auto;
     max-width: 800px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
@@ -606,4 +606,60 @@ body.light-theme .post-tag {
     .post-grid {
         grid-template-columns: 1fr;
     }
+}
+
+
+
+.featured-card {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-height: 420px;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #000;
+    margin: rem 0;
+    text-decoration: none;
+    color: white;
+}
+
+.featured-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: top;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 2rem;
+    position: relative;
+}
+
+.featured-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 600px;
+    backdrop-filter: blur(3px);
+}
+
+.featured-overlay h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: white;
+}
+
+.featured-overlay .post-meta {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+    display: flex;
+    gap: 1rem;
+}
+
+.featured-overlay .post-excerpt {
+    font-size: 1rem;
+    color: #eee;
 }

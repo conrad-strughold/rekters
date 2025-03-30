@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// Fallback template for index.html with search-toggle and search-bar
+// Fallback template for index.html with search-toggle, search-bar, favicon, and meta tags
 const fallbackTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +12,17 @@ const fallbackTemplate = `
     <title>Rekters - Breaking News, Breaking Hearts</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤡</text></svg>" type="image/svg+xml">
+    <meta name="description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta property="og:title" content="Rekters - Breaking News, Breaking Hearts">
+    <meta property="og:description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta property="og:image" content="https://www.rekters.com/images/image1.png">
+    <meta property="og:url" content="https://www.rekters.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rekters - Breaking News, Breaking Hearts">
+    <meta name="twitter:description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta name="twitter:image" content="https://www.rekters.com/images/image1.png">
 </head>
 <body>
     <nav class="navbar">
@@ -111,16 +122,18 @@ function getRandomImage() {
 
 // Function to generate featured story HTML
 function generateFeaturedHtml(article) {
+    const imageUrl = getRandomImage();
     return `
         <a href="posts/${article.slug}.html" class="featured-card">
-            <img src="${getRandomImage()}" alt="${article.title}">
-            <div class="featured-content">
-                <h3>${article.title}</h3>
-                <div class="post-meta">
-                    <span><i class="far fa-calendar"></i> ${article.date}</span>
-                    <span><i class="far fa-clock"></i> ${article.readTime}</span>
+            <div class="featured-image" style="background-image: url('${imageUrl}');">
+                <div class="featured-overlay">
+                    <h3>${article.title}</h3>
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> ${article.date}</span>
+                        <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                    </div>
+                    <p class="post-excerpt">${article.content[0].substring(0, 150)}...</p>
                 </div>
-                <p class="post-excerpt">${article.content[0].substring(0, 150)}...</p>
             </div>
         </a>
     `;
@@ -133,7 +146,6 @@ function generatePostHtml(article) {
             <img src="${getRandomImage()}" alt="${article.title}">
             <div class="post-content">
                 <h3>${article.title}</h3>
-               
                 <div class="post-meta">
                     <span><i class="far fa-calendar"></i> ${article.date}</span>
                     <span><i class="far fa-clock"></i> ${article.readTime}</span>
@@ -160,7 +172,7 @@ function generateTagsHtml(tags) {
     return tags.map(tag => `<span class="tag">${tag}</span>`).join('');
 }
 
-// Function to generate individual article HTML files
+// Function to generate individual article HTML files with favicon and meta tags
 function generateArticleHtml(article) {
     const { slug, title, category, date, readTime, tags, content } = article;
     const navLinks = `
@@ -169,6 +181,8 @@ function generateArticleHtml(article) {
     `;
     const articleContent = content.map(p => `<p>${p}</p>`).join('');
     const tagsHtml = tags.map(tag => `<span class="article-tag">${tag}</span>`).join('');
+    const randomImage = getRandomImage();
+    const excerpt = content[0].substring(0, 150) + '...';
     const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -178,6 +192,17 @@ function generateArticleHtml(article) {
     <title>${title}</title>
     <link rel="stylesheet" href="../css/post.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤡</text></svg>" type="image/svg+xml">
+    <meta name="description" content="${excerpt}">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${excerpt}">
+    <meta property="og:image" content="${randomImage}">
+    <meta property="og:url" content="https://www.rekters.com/posts/${slug}.html">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${excerpt}">
+    <meta name="twitter:image" content="${randomImage}">
 </head>
 <body>
     <nav class="navbar">
@@ -241,6 +266,27 @@ if (!fs.existsSync(indexPath) || fs.readFileSync(indexPath, 'utf8').trim() === '
 }
 
 const $ = cheerio.load(indexHtml);
+
+// Ensure favicon and meta tags are in the <head> of index.html
+$('head link[rel="icon"]').remove(); // Remove any existing favicon
+$('head').append('<link rel="icon" href="data:image/svg+xml,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'><text y=\'.9em\' font-size=\'90\'>🤡</text></svg>" type="image/svg+xml">');
+
+// Remove existing meta tags to avoid duplicates, then add new ones
+$('head meta[name="description"]').remove();
+$('head meta[property^="og:"]').remove();
+$('head meta[name^="twitter:"]').remove();
+$('head').append(`
+    <meta name="description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta property="og:title" content="Rekters - Breaking News, Breaking Hearts">
+    <meta property="og:description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta property="og:image" content="https://www.rekters.com/images/image1.png">
+    <meta property="og:url" content="https://www.rekters.com/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rekters - Breaking News, Breaking Hearts">
+    <meta name="twitter:description" content="Your trusted source for the latest market crashes, tech fails, and political disasters.">
+    <meta name="twitter:image" content="https://www.rekters.com/images/image1.png">
+`);
 
 // Sort articles by date descending (newest first)
 articles.sort((a, b) => new Date(b.date) - new Date(a.date));
