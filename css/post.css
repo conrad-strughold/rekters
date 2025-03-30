@@ -22,12 +22,12 @@ body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    font-weight: 400; /* Consistent with style.css */
+    font-weight: 400;
 }
 
 .navbar {
     background-color: var(--bg-secondary);
-    padding: 1.5rem 2rem; /* Match style.css */
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,38 +39,38 @@ body {
 
 .nav-brand {
     font-size: 1.5rem;
-    font-weight: 600; /* Semi-bold, consistent with style.css */
+    font-weight: 600;
     color: var(--accent-color);
 }
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 1.5rem; /* Match style.css */
+    gap: 1.5rem;
 }
 
 .nav-links a {
     color: var(--text-secondary);
     text-decoration: none;
-    transition: all 0.3s ease; /* Match style.css */
+    transition: all 0.3s ease;
     font-weight: 500;
     font-size: 0.875rem;
     letter-spacing: 0.5px;
-    padding: 0.5rem 1rem; /* Match style.css */
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    text-transform: uppercase; /* Keep from original post.css */
+    text-transform: uppercase;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--text-primary);
-    background-color: var(--accent-color); /* Match style.css hover effect */
+    background-color: var(--accent-color);
 }
 
 .theme-toggle {
     cursor: pointer;
     color: var(--text-secondary);
-    transition: color 0.3s ease; /* Match style.css */
+    transition: color 0.3s ease;
 }
 
 .theme-toggle:hover {
@@ -78,13 +78,13 @@ body {
 }
 
 main {
-    max-width: 1400px; /* Match style.css */
-    margin: 0 auto; /* Center like style.css */
-    padding: 0 3rem; /* Match style.css */
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
 }
 
 .article-header {
-    margin-bottom: 3rem; /* Slightly more space, aligning with style.css */
+    margin-bottom: 3rem;
 }
 
 .article-category {
@@ -101,8 +101,8 @@ main {
 }
 
 .article-title {
-    font-family: 'Poppins', sans-serif; /* Updated to Poppins */
-    font-weight: 600; /* Semi-bold, consistent with style.css headings */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     font-size: 2.5rem;
     line-height: 1.2;
     margin-bottom: 1rem;
@@ -114,9 +114,9 @@ main {
     align-items: center;
     gap: 1rem;
     color: var(--text-secondary);
-    font-size: 0.75rem; /* Match style.css post-meta */
+    font-size: 0.75rem;
     margin-bottom: 2rem;
-    text-transform: uppercase; /* Match style.css */
+    text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
@@ -125,8 +125,8 @@ main {
 }
 
 .article-content {
-    font-size: 1rem; /* Match style.css post-excerpt */
-    line-height: 1.8; /* Match style.css featured-card post-excerpt */
+    font-size: 1rem;
+    line-height: 1.8;
     color: var(--text-primary);
 }
 
@@ -183,38 +183,41 @@ body.light-theme {
 body.light-theme .nav-links a:hover,
 body.light-theme .nav-links a.active {
     color: var(--text-primary);
-    background-color: var(--accent-color); /* Match style.css */
+    background-color: var(--accent-color);
 }
 
 /* Responsive Design Improvements */
 @media (max-width: 1024px) {
     main {
-        padding: 0 1.5rem; /* Match style.css */
+        padding: 0 1.5rem;
     }
 }
 
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+        padding: 1rem 2rem;
+        justify-content: space-between; /* Keep logo on left, theme toggle on right */
+        position: relative;
     }
 
     .nav-links {
-        display: flex;
-        gap: 1rem;
+        display: none; /* Hide only the nav links */
     }
 
-    .nav-links a {
-        margin-left: 0;
+    .nav-brand {
+        display: block; /* Keep logo visible */
+    }
+
+    .theme-toggle {
+        display: block; /* Keep theme toggle visible */
     }
 
     .article-title {
-        font-size: 1.5rem; /* Match style.css featured-content h3 */
+        font-size: 1.5rem;
     }
 
     .article-content {
-        font-size: 0.875rem; /* Match style.css post-excerpt */
+        font-size: 0.875rem;
     }
 }
 
@@ -235,10 +238,10 @@ body.light-theme .nav-links a.active {
 }
 
 .logo-text {
-    font-family: 'Poppins', sans-serif; /* Updated to Poppins */
-    font-weight: 700; /* Bold, consistent with style.css */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
     color: var(--accent-color);
-    font-size: 1.75rem; /* Match style.css */
+    font-size: 1.75rem;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
