@@ -133,7 +133,7 @@ function generatePostHtml(article) {
             <img src="${getRandomImage()}" alt="${article.title}">
             <div class="post-content">
                 <h3>${article.title}</h3>
-                <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
+               
                 <div class="post-meta">
                     <span><i class="far fa-calendar"></i> ${article.date}</span>
                     <span><i class="far fa-clock"></i> ${article.readTime}</span>
