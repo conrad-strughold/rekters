@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const postList = document.getElementById('post-list');
     const searchInput = document.getElementById('search');
     const themeToggle = document.querySelector('.theme-toggle');
+    const featuredContent = document.getElementById('featured-content'); // Add reference to featured section
     let posts = [];
 
     // Theme toggle functionality
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.classList.toggle('fa-sun');
     });
 
-    // Get all posts from the HTML (updated for Node.js <a class="post-card">)
+    // Get all posts from the HTML
     function getPostsFromHTML() {
         const postCards = document.querySelectorAll('#post-list .post-card');
         return Array.from(postCards).map(card => {
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = card.querySelector('.post-category')?.textContent || 'News';
 
             return {
-                file: card.getAttribute('href'), // Get href from <a class="post-card">
+                file: card.getAttribute('href'),
                 title,
                 excerpt,
                 date,
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Create post card HTML (whole card clickable, no "Read more")
+    // Create post card HTML
     function createPostCard(post) {
         return `
             <a href="${post.file}" class="post-card">
@@ -75,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize posts from HTML
     posts = getPostsFromHTML();
 
-    // Search functionality
+    // Search functionality with featured article hiding
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
@@ -84,6 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 post.excerpt.toLowerCase().includes(searchTerm)
             );
             postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
+
+            // Hide or show featured content based on search input
+            if (searchTerm.length > 0 && featuredContent) {
+                featuredContent.style.display = 'none'; // Hide when searching
+            } else if (featuredContent) {
+                featuredContent.style.display = 'block'; // Show when search is cleared
+            }
         });
     } else {
         console.error('Search input (#search) not found in the DOM');

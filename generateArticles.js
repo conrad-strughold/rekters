@@ -2,6 +2,89 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
+// Fallback template for index.html
+const fallbackTemplate = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekters - Breaking News, Breaking Hearts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-text">REKTERS</span>
+                </a>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">BREAKING NEWS</a>
+            <a href="#">MARKETS</a>
+       
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search news...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div id="tags" class="tags-container"></div>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <section class="featured-post">
+                <div id="featured-content"></div>
+            </section>
+
+            <section class="posts-section">
+                <h2>Latest Rekts</h2>
+                <div id="post-list" class="post-grid"></div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Latest News</h3>
+                <div class="sidebar-news"></div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Rekters</h3>
+                <p>Your trusted source for the latest market crashes, tech fails, and political disasters.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Rekters. All rights rekt.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+`;
+
 // Function to generate featured story HTML (rich details, fully clickable)
 function generateFeaturedHtml(article) {
   return `
@@ -61,8 +144,6 @@ function generateArticleHtml(article) {
   const navLinks = `
     <a href="../index.html">Breaking News</a>
     <a href="#" class="${category === 'Markets' ? 'active' : ''}">Markets</a>
-    <a href="#" class="${category === 'Technology' ? 'active' : ''}">Technology</a>
-    <a href="#" class="${category === 'Politics' ? 'active' : ''}">Politics</a>
   `;
   const articleContent = content.map(p => `<p>${p}</p>`).join('');
   const tagsHtml = tags.map(tag => `<span class="article-tag">${tag}</span>`).join('');
@@ -127,9 +208,18 @@ articles.forEach(article => {
   fs.writeFileSync(filePath, html, 'utf8');
 });
 
-// Update index.html
+// Update or create index.html
 const indexPath = 'index.html';
-const indexHtml = fs.readFileSync(indexPath, 'utf8');
+let indexHtml;
+
+// Check if index.html exists and has content
+if (!fs.existsSync(indexPath) || fs.readFileSync(indexPath, 'utf8').trim() === '') {
+  console.log('index.html not found or empty, using fallback template');
+  indexHtml = fallbackTemplate;
+} else {
+  indexHtml = fs.readFileSync(indexPath, 'utf8');
+}
+
 const $ = cheerio.load(indexHtml);
 
 // Sort articles by date descending (newest first)
@@ -144,7 +234,9 @@ const featuredHtml = generateFeaturedHtml(featuredArticle);
 // Update featured story explicitly
 const featuredElement = $('#featured-content');
 if (featuredElement.length === 0) {
-  console.error('Error: #featured-content not found in index.html');
+  console.error('Error: #featured-content not found in index.html - adding it');
+  $('section.featured-post').append('<div id="featured-content"></div>');
+  $('#featured-content').append(featuredHtml);
 } else {
   featuredElement.empty().append(featuredHtml);
 }
@@ -154,19 +246,35 @@ const latestRektsArticles = articles.filter(article => article.slug !== featured
 const postsHtml = latestRektsArticles.map(generatePostHtml).join('');
 const postListElement = $('#post-list');
 if (postListElement.length === 0) {
-  console.error('Error: #post-list not found in index.html');
+  console.error('Error: #post-list not found in index.html - adding it');
+  $('section.posts-section').append('<div id="post-list" class="post-grid"></div>');
+  $('#post-list').append(postsHtml);
 } else {
   postListElement.empty().append(postsHtml);
 }
 
 // Update sidebar with all articles
 const sidebarHtml = articles.map(generateSidebarHtml).join('');
-$('.sidebar-news').empty().append(sidebarHtml);
+const sidebarNewsElement = $('.sidebar-news');
+if (sidebarNewsElement.length === 0) {
+  console.error('Error: .sidebar-news not found in index.html - adding it');
+  $('aside.sidebar .sidebar-section').append('<div class="sidebar-news"></div>');
+  $('.sidebar-news').append(sidebarHtml);
+} else {
+  sidebarNewsElement.empty().append(sidebarHtml);
+}
 
 // Update tags with all unique tags
 const allTags = [...new Set(articles.flatMap(article => article.tags))];
 const tagsHtml = generateTagsHtml(allTags);
-$('#tags').empty().append(tagsHtml);
+const tagsElement = $('#tags');
+if (tagsElement.length === 0) {
+  console.error('Error: #tags not found in index.html - adding it');
+  $('header.hero').append('<div id="tags" class="tags-container"></div>');
+  $('#tags').append(tagsHtml);
+} else {
+  tagsElement.empty().append(tagsHtml);
+}
 
 // Verify the featured article in the updated HTML
 const updatedHtml = $.html();

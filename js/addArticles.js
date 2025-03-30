@@ -25,8 +25,7 @@ const defaultHTML = `<!DOCTYPE html><html lang="en"><head>
         <div class="nav-links">
             <a href="#" class="active">Breaking News</a>
             <a href="#">Markets</a>
-            <a href="#">Technology</a>
-            <a href="#">Politics</a>
+      
             <div class="search-container">
                 <input type="text" id="search" placeholder="Search news...">
                 <i class="fas fa-search"></i>
@@ -44,7 +43,6 @@ const defaultHTML = `<!DOCTYPE html><html lang="en"><head>
     <main>
         <div class="main-content">
             <section class="featured-post">
-                <h2>Featured Story</h2>
                 <div id="featured-content"></div>
             </section>
 
