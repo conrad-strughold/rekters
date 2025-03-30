@@ -91,7 +91,6 @@ function generateFeaturedHtml(article) {
     <a href="posts/${article.slug}.html" class="featured-card">
       <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
       <div class="featured-content">
-        <span class="post-category">${article.category}</span>
         <h3>${article.title}</h3>
         <div class="post-meta">
           <span><i class="far fa-calendar"></i> ${article.date}</span>
@@ -109,7 +108,6 @@ function generatePostHtml(article) {
     <a href="posts/${article.slug}.html" class="post-card">
       <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
       <div class="post-content">
-        <span class="post-category">${article.category}</span>
         <h3>${article.title}</h3>
         <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
         <div class="post-meta">
@@ -166,7 +164,6 @@ function generateArticleHtml(article) {
     <main>
         <article>
             <header class="article-header">
-                <span class="article-category">${category}</span>
                 <h1 class="article-title">${title}</h1>
                 <div class="article-meta">
                     <span><i class="far fa-calendar"></i> ${date}</span>
