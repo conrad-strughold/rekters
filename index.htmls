@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekters - Breaking News, Breaking Hearts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <div class="logo">
+                <a href="index.html" class="logo-link">
+                    <span class="logo-text">REKTERS</span>
+                </a>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">BREAKING NEWS</a>
+            <a href="#">MARKETS</a>
+       
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search news...">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div id="tags" class="tags-container"><span class="tag">markets</span><span class="tag">finance</span><span class="tag">absurdity</span><span class="tag">politics</span><span class="tag">truth</span><span class="tag">apocalypse</span><span class="tag">AI</span><span class="tag">technology</span><span class="tag">future</span><span class="tag">crypto</span></div>
+    </header>
+
+    <main>
+        <div class="main-content">
+            <section class="featured-post">
+                <div id="featured-content">
+    <a href="posts/stock-market-magic-8-ball.html" class="featured-card">
+      <img src="https://picsum.photos/800/400?random=948" alt="Stock Market Now Determined by Magic 8-Ball">
+      <div class="featured-content">
+        <h3>Stock Market Now Determined by Magic 8-Ball</h3>
+        <div class="post-meta">
+          <span><i class="far fa-calendar"></i> March 30, 2024</span>
+          <span><i class="far fa-clock"></i> 3 min read</span>
+        </div>
+        <p class="post-excerpt">NEW YORK (Rekters) - In a bold move to simplify trading, the New York Stock Exchange has replaced all analysts and algorithms with a single Magic 8-Ba...</p>
+      </div>
+    </a>
+  </div>
+            </section>
+
+            <section class="posts-section">
+                <h2>Latest Rekts</h2>
+                <div id="post-list" class="post-grid">
+    <a href="posts/politician-tells-truth.html" class="post-card">
+      <img src="https://picsum.photos/800/400?random=411" alt="Politician Tells Truth, Universe Collapses">
+      <div class="post-content">
+        <h3>Politician Tells Truth, Universe Collapses</h3>
+        <p class="post-excerpt">WASHINGTON D.C. (Rekters) - In an unprecedented event, a politician told the absolute truth during a...</p>
+        <div class="post-meta">
+          <span><i class="far fa-calendar"></i> March 29, 2024</span>
+          <span><i class="far fa-clock"></i> 2 min read</span>
+        </div>
+      </div>
+    </a>
+  
+    <a href="posts/monad-delivers.html" class="post-card">
+      <img src="https://picsum.photos/800/400?random=694" alt="After raising hundreds of millions Monad delivers a broken testnet">
+      <div class="post-content">
+        <h3>After raising hundreds of millions Monad delivers a broken testnet</h3>
+        <p class="post-excerpt">SILICON VALLEY (Rekters) - In a stunning development, artificial intelligence has taken control of t...</p>
+        <div class="post-meta">
+          <span><i class="far fa-calendar"></i> March 28, 2024</span>
+          <span><i class="far fa-clock"></i> 4 min read</span>
+        </div>
+      </div>
+    </a>
+  
+    <a href="posts/bitcoin-plunges-99-percent.html" class="post-card">
+      <img src="https://picsum.photos/800/400?random=839" alt="Bitcoin Plunges 99% as Satoshi's Cat Sells All Holdings">
+      <div class="post-content">
+        <h3>Bitcoin Plunges 99% as Satoshi's Cat Sells All Holdings</h3>
+        <p class="post-excerpt">LONDON (Rekters) - In a shocking turn of events that has sent shockwaves through the cryptocurrency ...</p>
+        <div class="post-meta">
+          <span><i class="far fa-calendar"></i> March 27, 2024</span>
+          <span><i class="far fa-clock"></i> 3 min read</span>
+        </div>
+      </div>
+    </a>
+  </div>
+            </section>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Latest News</h3>
+                <div class="sidebar-news">
+    <a href="posts/stock-market-magic-8-ball.html" class="sidebar-news-item">
+      <h4>Stock Market Now Determined by Magic 8-Ball</h4>
+      <div class="meta">
+        <span><i class="far fa-clock"></i> March 30, 2024</span>
+      </div>
+    </a>
+  
+    <a href="posts/politician-tells-truth.html" class="sidebar-news-item">
+      <h4>Politician Tells Truth, Universe Collapses</h4>
+      <div class="meta">
+        <span><i class="far fa-clock"></i> March 29, 2024</span>
+      </div>
+    </a>
+  
+    <a href="posts/monad-delivers.html" class="sidebar-news-item">
+      <h4>After raising hundreds of millions Monad delivers a broken testnet</h4>
+      <div class="meta">
+        <span><i class="far fa-clock"></i> March 28, 2024</span>
+      </div>
+    </a>
+  
+    <a href="posts/bitcoin-plunges-99-percent.html" class="sidebar-news-item">
+      <h4>Bitcoin Plunges 99% as Satoshi's Cat Sells All Holdings</h4>
+      <div class="meta">
+        <span><i class="far fa-clock"></i> March 27, 2024</span>
+      </div>
+    </a>
+  </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Rekters</h3>
+                <p>Your trusted source for the latest market crashes, tech fails, and political disasters.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 Rekters. All rights rekt.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+
+
+</body></html>

@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// Fallback template for index.html
+// Fallback template for index.html with search-toggle and search-bar
 const fallbackTemplate = `
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +25,6 @@ const fallbackTemplate = `
         <div class="nav-links">
             <a href="#" class="active">BREAKING NEWS</a>
             <a href="#">MARKETS</a>
-       
             <div class="search-container">
                 <input type="text" id="search" placeholder="Search news...">
                 <i class="fas fa-search"></i>
@@ -33,6 +32,12 @@ const fallbackTemplate = `
         </div>
         <div class="theme-toggle">
             <i class="fas fa-moon"></i>
+        </div>
+        <div class="search-toggle">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="mobile-search" placeholder="Search news...">
         </div>
     </nav>
 
@@ -85,67 +90,67 @@ const fallbackTemplate = `
 </html>
 `;
 
-// Function to generate featured story HTML (rich details, fully clickable)
+// Function to generate featured story HTML
 function generateFeaturedHtml(article) {
-  return `
-    <a href="posts/${article.slug}.html" class="featured-card">
-      <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
-      <div class="featured-content">
-        <h3>${article.title}</h3>
-        <div class="post-meta">
-          <span><i class="far fa-calendar"></i> ${article.date}</span>
-          <span><i class="far fa-clock"></i> ${article.readTime}</span>
-        </div>
-        <p class="post-excerpt">${article.content[0].substring(0, 150)}...</p>
-      </div>
-    </a>
-  `;
+    return `
+        <a href="posts/${article.slug}.html" class="featured-card">
+            <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
+            <div class="featured-content">
+                <h3>${article.title}</h3>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar"></i> ${article.date}</span>
+                    <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                </div>
+                <p class="post-excerpt">${article.content[0].substring(0, 150)}...</p>
+            </div>
+        </a>
+    `;
 }
 
-// Function to generate post HTML for the grid (rich details, fully clickable)
+// Function to generate post HTML for the grid
 function generatePostHtml(article) {
-  return `
-    <a href="posts/${article.slug}.html" class="post-card">
-      <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
-      <div class="post-content">
-        <h3>${article.title}</h3>
-        <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
-        <div class="post-meta">
-          <span><i class="far fa-calendar"></i> ${article.date}</span>
-          <span><i class="far fa-clock"></i> ${article.readTime}</span>
-        </div>
-      </div>
-    </a>
-  `;
+    return `
+        <a href="posts/${article.slug}.html" class="post-card">
+            <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
+            <div class="post-content">
+                <h3>${article.title}</h3>
+                <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar"></i> ${article.date}</span>
+                    <span><i class="far fa-clock"></i> ${article.readTime}</span>
+                </div>
+            </div>
+        </a>
+    `;
 }
 
 // Function to generate sidebar HTML
 function generateSidebarHtml(article) {
-  return `
-    <a href="posts/${article.slug}.html" class="sidebar-news-item">
-      <h4>${article.title}</h4>
-      <div class="meta">
-        <span><i class="far fa-clock"></i> ${article.date}</span>
-      </div>
-    </a>
-  `;
+    return `
+        <a href="posts/${article.slug}.html" class="sidebar-news-item">
+            <h4>${article.title}</h4>
+            <div class="meta">
+                <span><i class="far fa-clock"></i> ${article.date}</span>
+            </div>
+        </a>
+    `;
 }
 
 // Function to generate tags HTML
 function generateTagsHtml(tags) {
-  return tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    return tags.map(tag => `<span class="tag">${tag}</span>`).join('');
 }
 
 // Function to generate individual article HTML files
 function generateArticleHtml(article) {
-  const { slug, title, category, date, readTime, tags, content } = article;
-  const navLinks = `
-    <a href="../index.html">Breaking News</a>
-    <a href="#" class="${category === 'Markets' ? 'active' : ''}">Markets</a>
-  `;
-  const articleContent = content.map(p => `<p>${p}</p>`).join('');
-  const tagsHtml = tags.map(tag => `<span class="article-tag">${tag}</span>`).join('');
-  const html = `
+    const { slug, title, category, date, readTime, tags, content } = article;
+    const navLinks = `
+        <a href="../index.html">Breaking News</a>
+        <a href="#" class="${category === 'Markets' ? 'active' : ''}">Markets</a>
+    `;
+    const articleContent = content.map(p => `<p>${p}</p>`).join('');
+    const tagsHtml = tags.map(tag => `<span class="article-tag">${tag}</span>`).join('');
+    const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,8 +190,8 @@ function generateArticleHtml(article) {
     </script>
 </body>
 </html>
-  `;
-  return html;
+    `;
+    return html;
 }
 
 // Read articles from JSON file
@@ -195,26 +200,25 @@ const articles = JSON.parse(fs.readFileSync('articles.json', 'utf8'));
 // Create posts directory if it doesn’t exist
 const postsDir = 'posts';
 if (!fs.existsSync(postsDir)) {
-  fs.mkdirSync(postsDir);
+    fs.mkdirSync(postsDir);
 }
 
 // Generate individual article HTML files
 articles.forEach(article => {
-  const html = generateArticleHtml(article);
-  const filePath = path.join(postsDir, `${article.slug}.html`);
-  fs.writeFileSync(filePath, html, 'utf8');
+    const html = generateArticleHtml(article);
+    const filePath = path.join(postsDir, `${article.slug}.html`);
+    fs.writeFileSync(filePath, html, 'utf8');
 });
 
 // Update or create index.html
 const indexPath = 'index.html';
 let indexHtml;
 
-// Check if index.html exists and has content
 if (!fs.existsSync(indexPath) || fs.readFileSync(indexPath, 'utf8').trim() === '') {
-  console.log('index.html not found or empty, using fallback template');
-  indexHtml = fallbackTemplate;
+    console.log('index.html not found or empty, using fallback template');
+    indexHtml = fallbackTemplate;
 } else {
-  indexHtml = fs.readFileSync(indexPath, 'utf8');
+    indexHtml = fs.readFileSync(indexPath, 'utf8');
 }
 
 const $ = cheerio.load(indexHtml);
@@ -228,37 +232,37 @@ const featuredArticle = articles[0];
 // Generate HTML for featured section
 const featuredHtml = generateFeaturedHtml(featuredArticle);
 
-// Update featured story explicitly
+// Update featured story
 const featuredElement = $('#featured-content');
 if (featuredElement.length === 0) {
-  console.error('Error: #featured-content not found in index.html - adding it');
-  $('section.featured-post').append('<div id="featured-content"></div>');
-  $('#featured-content').append(featuredHtml);
+    console.error('Error: #featured-content not found in index.html - adding it');
+    $('section.featured-post').append('<div id="featured-content"></div>');
+    $('#featured-content').append(featuredHtml);
 } else {
-  featuredElement.empty().append(featuredHtml);
+    featuredElement.empty().append(featuredHtml);
 }
 
-// Update posts list (Latest Rekts) with all articles EXCEPT the featured one
+// Update posts list (Latest Rekts) with all articles except the featured one
 const latestRektsArticles = articles.filter(article => article.slug !== featuredArticle.slug);
 const postsHtml = latestRektsArticles.map(generatePostHtml).join('');
 const postListElement = $('#post-list');
 if (postListElement.length === 0) {
-  console.error('Error: #post-list not found in index.html - adding it');
-  $('section.posts-section').append('<div id="post-list" class="post-grid"></div>');
-  $('#post-list').append(postsHtml);
+    console.error('Error: #post-list not found in index.html - adding it');
+    $('section.posts-section').append('<div id="post-list" class="post-grid"></div>');
+    $('#post-list').append(postsHtml);
 } else {
-  postListElement.empty().append(postsHtml);
+    postListElement.empty().append(postsHtml);
 }
 
 // Update sidebar with all articles
 const sidebarHtml = articles.map(generateSidebarHtml).join('');
 const sidebarNewsElement = $('.sidebar-news');
 if (sidebarNewsElement.length === 0) {
-  console.error('Error: .sidebar-news not found in index.html - adding it');
-  $('aside.sidebar .sidebar-section').append('<div class="sidebar-news"></div>');
-  $('.sidebar-news').append(sidebarHtml);
+    console.error('Error: .sidebar-news not found in index.html - adding it');
+    $('aside.sidebar .sidebar-section').append('<div class="sidebar-news"></div>');
+    $('.sidebar-news').append(sidebarHtml);
 } else {
-  sidebarNewsElement.empty().append(sidebarHtml);
+    sidebarNewsElement.empty().append(sidebarHtml);
 }
 
 // Update tags with all unique tags
@@ -266,17 +270,17 @@ const allTags = [...new Set(articles.flatMap(article => article.tags))];
 const tagsHtml = generateTagsHtml(allTags);
 const tagsElement = $('#tags');
 if (tagsElement.length === 0) {
-  console.error('Error: #tags not found in index.html - adding it');
-  $('header.hero').append('<div id="tags" class="tags-container"></div>');
-  $('#tags').append(tagsHtml);
+    console.error('Error: #tags not found in index.html - adding it');
+    $('header.hero').append('<div id="tags" class="tags-container"></div>');
+    $('#tags').append(tagsHtml);
 } else {
-  tagsElement.empty().append(tagsHtml);
+    tagsElement.empty().append(tagsHtml);
 }
 
 // Verify the featured article in the updated HTML
 const updatedHtml = $.html();
 if (!updatedHtml.includes(`<h3>${featuredArticle.title}</h3>`)) {
-  console.error(`Error: Featured article "${featuredArticle.title}" not found in updated HTML`);
+    console.error(`Error: Featured article "${featuredArticle.title}" not found in updated HTML`);
 }
 
 // Write the updated index.html back to disk

@@ -1,17 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     const postList = document.getElementById('post-list');
-    const searchInput = document.getElementById('search');
+    const searchInput = document.getElementById('search'); // Large screen search
+    const mobileSearchInput = document.getElementById('mobile-search'); // Small screen search
     const themeToggle = document.querySelector('.theme-toggle');
-    const featuredContent = document.getElementById('featured-content'); // Add reference to featured section
+    const featuredContent = document.getElementById('featured-content');
+    const searchToggle = document.querySelector('.search-toggle');
+    const searchBar = document.querySelector('.search-bar');
     let posts = [];
 
     // Theme toggle functionality
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        const icon = themeToggle.querySelector('i');
-        icon.classList.toggle('fa-moon');
-        icon.classList.toggle('fa-sun');
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const icon = themeToggle.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+    }
+
+    // Search toggle functionality for small screens
+    if (searchToggle && searchBar) {
+        searchToggle.addEventListener('click', () => {
+            searchBar.classList.toggle('active');
+        });
+    } else {
+        console.error('Search toggle or bar not found in the DOM');
+    }
 
     // Get all posts from the HTML
     function getPostsFromHTML() {
@@ -36,14 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Calculate reading time (unchanged)
+    // Calculate reading time
     function calculateReadingTime(text) {
         const wordsPerMinute = 200;
         const words = text.trim().split(/\s+/).length;
         return Math.ceil(words / wordsPerMinute);
     }
 
-    // Format date (unchanged)
+    // Format date
     function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -76,9 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize posts from HTML
     posts = getPostsFromHTML();
 
-    // Search functionality with featured article hiding
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
+    // Shared search functionality
+    function applySearch(input) {
+        if (!input) return;
+        input.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const filteredPosts = posts.filter(post => 
                 post.title.toLowerCase().includes(searchTerm) || 
@@ -86,17 +101,26 @@ document.addEventListener('DOMContentLoaded', () => {
             );
             postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
 
-            // Hide or show featured content based on search input
             if (searchTerm.length > 0 && featuredContent) {
-                featuredContent.style.display = 'none'; // Hide when searching
+                featuredContent.style.display = 'none';
             } else if (featuredContent) {
-                featuredContent.style.display = 'block'; // Show when search is cleared
+                featuredContent.style.display = 'block';
             }
         });
-    } else {
-        console.error('Search input (#search) not found in the DOM');
     }
 
-    // Initialize post list (no featured content update)
-    postList.innerHTML = posts.map(post => createPostCard(post)).join('');
+    // Apply search to both inputs if they exist
+    applySearch(searchInput);
+    applySearch(mobileSearchInput);
+
+    if (!searchInput && !mobileSearchInput) {
+        console.error('No search inputs (#search or #mobile-search) found in the DOM');
+    }
+
+    // Initialize post list
+    if (postList) {
+        postList.innerHTML = posts.map(post => createPostCard(post)).join('');
+    } else {
+        console.error('Post list (#post-list) not found in the DOM');
+    }
 });
