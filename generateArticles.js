@@ -90,23 +90,23 @@ const fallbackTemplate = `
 </html>
 `;
 
-// List of local images
-const localImages = [
-    '/images/image1.png',
-    '/images/image2.png',
-    '/images/image3.png',
-    '/images/image4.png',
-    '/images/image5.png',
-    '/images/image6.png',
-    '/images/image7.png',
-    '/images/image8.png',
-    '/images/image9.png'
+// List of remote images hosted at rekters.com
+const remoteImages = [
+    'https://www.rekters.com/images/image1.png',
+    'https://www.rekters.com/images/image2.png',
+    'https://www.rekters.com/images/image3.png',
+    'https://www.rekters.com/images/image4.png',
+    'https://www.rekters.com/images/image5.png',
+    'https://www.rekters.com/images/image6.png',
+    'https://www.rekters.com/images/image7.png',
+    'https://www.rekters.com/images/image8.png',
+    'https://www.rekters.com/images/image9.png'
 ];
 
-// Function to get a random local image
+// Function to get a random remote image
 function getRandomImage() {
-    const randomIndex = Math.floor(Math.random() * localImages.length);
-    return localImages[randomIndex];
+    const randomIndex = Math.floor(Math.random() * remoteImages.length);
+    return remoteImages[randomIndex];
 }
 
 // Function to generate featured story HTML
