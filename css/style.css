@@ -278,14 +278,11 @@ main {
 
 .post-card img {
     width: 100%;
-    height: auto;
-    max-height: 240px;
-    object-fit: contain;
+    height: 180px;
+    object-fit: cover;
     object-position: top;
-    background-color: #000; /* or match your card bg color */
-    margin: 0 auto;
-    display: block;
 }
+
 
 
 .post-content {
