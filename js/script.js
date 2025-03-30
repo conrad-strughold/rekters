@@ -12,20 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.classList.toggle('fa-sun');
     });
 
-    // Get all posts from the HTML
+    // Get all posts from the HTML (updated for Node.js <a class="post-card">)
     function getPostsFromHTML() {
-        const postCards = document.querySelectorAll('#post-list .post-card'); // Scope to #post-list
+        const postCards = document.querySelectorAll('#post-list .post-card');
         return Array.from(postCards).map(card => {
-            const link = card.querySelector('a');
             const title = card.querySelector('h3').textContent;
             const excerpt = card.querySelector('p').textContent;
-            const date = new Date().toLocaleDateString(); // Placeholder; consider using actual dates
-            const readTime = '3 min read'; // Placeholder; consider actual read times
-            const image = 'https://picsum.photos/800/400?random=' + Math.floor(Math.random() * 1000);
-            const category = 'News'; // Placeholder; consider actual categories
+            const date = card.querySelector('.post-meta span:first-child')?.textContent.replace(/.*\s/, '') || new Date().toLocaleDateString();
+            const readTime = card.querySelector('.post-meta span:last-child')?.textContent.replace(/.*\s/, '') || '3 min read';
+            const image = card.querySelector('img')?.src || 'https://picsum.photos/800/400?random=' + Math.floor(Math.random() * 1000);
+            const category = card.querySelector('.post-category')?.textContent || 'News';
 
             return {
-                file: link.getAttribute('href'),
+                file: card.getAttribute('href'), // Get href from the <a class="post-card">
                 title,
                 excerpt,
                 date,
@@ -36,14 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Calculate reading time
+    // Calculate reading time (unchanged)
     function calculateReadingTime(text) {
         const wordsPerMinute = 200;
         const words = text.trim().split(/\s+/).length;
         return Math.ceil(words / wordsPerMinute);
     }
 
-    // Format date
+    // Format date (unchanged)
     function formatDate(dateString) {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', {
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Create post card HTML
+    // Create post card HTML (unchanged, keeps your preferred layout)
     function createPostCard(post) {
         return `
             <div class="post-card">
@@ -78,15 +77,18 @@ document.addEventListener('DOMContentLoaded', () => {
     posts = getPostsFromHTML();
 
     // Search functionality
-    searchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filteredPosts = posts.filter(post => 
-            post.title.toLowerCase().includes(searchTerm) || 
-            post.excerpt.toLowerCase().includes(searchTerm)
-        );
-
-        postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
-    });
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredPosts = posts.filter(post => 
+                post.title.toLowerCase().includes(searchTerm) || 
+                post.excerpt.toLowerCase().includes(searchTerm)
+            );
+            postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
+        });
+    } else {
+        console.error('Search input (#search) not found in the DOM');
+    }
 
     // Initialize post list (no featured content update)
     postList.innerHTML = posts.map(post => createPostCard(post)).join('');

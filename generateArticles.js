@@ -2,10 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const cheerio = require('cheerio');
 
-// Function to generate featured story HTML (updated to match script.js style)
+// Function to generate featured story HTML (rich details, fully clickable)
 function generateFeaturedHtml(article) {
   return `
-    <div class="featured-card">
+    <a href="posts/${article.slug}.html" class="featured-card">
       <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
       <div class="featured-content">
         <span class="post-category">${article.category}</span>
@@ -14,21 +14,27 @@ function generateFeaturedHtml(article) {
           <span><i class="far fa-calendar"></i> ${article.date}</span>
           <span><i class="far fa-clock"></i> ${article.readTime}</span>
         </div>
-        <p>${article.content[0].substring(0, 150)}...</p>
-        <a href="posts/${article.slug}.html" class="read-more">Read more</a>
+        <p class="post-excerpt">${article.content[0].substring(0, 150)}...</p>
       </div>
-    </div>
+    </a>
   `;
 }
 
-// Function to generate post HTML for the grid (Latest Rekts)
+// Function to generate post HTML for the grid (rich details, fully clickable)
 function generatePostHtml(article) {
   return `
-    <div class="post-card">
-      <h3>${article.title}</h3>
-      <p>${article.content[0].substring(0, 100)}...</p>
-      <a href="posts/${article.slug}.html">Read more</a>
-    </div>
+    <a href="posts/${article.slug}.html" class="post-card">
+      <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
+      <div class="post-content">
+        <span class="post-category">${article.category}</span>
+        <h3>${article.title}</h3>
+        <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
+        <div class="post-meta">
+          <span><i class="far fa-calendar"></i> ${article.date}</span>
+          <span><i class="far fa-clock"></i> ${article.readTime}</span>
+        </div>
+      </div>
+    </a>
   `;
 }
 
