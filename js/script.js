@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const category = card.querySelector('.post-category')?.textContent || 'News';
 
             return {
-                file: card.getAttribute('href'), // Get href from the <a class="post-card">
+                file: card.getAttribute('href'), // Get href from <a class="post-card">
                 title,
                 excerpt,
                 date,
@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Create post card HTML (unchanged, keeps your preferred layout)
+    // Create post card HTML (whole card clickable, no "Read more")
     function createPostCard(post) {
         return `
-            <div class="post-card">
+            <a href="${post.file}" class="post-card">
                 <div class="post-image">
                     <img src="${post.image}" alt="${post.title}">
                 </div>
@@ -67,9 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span><i class="far fa-calendar"></i> ${formatDate(post.date)}</span>
                         <span><i class="far fa-clock"></i> ${post.readTime}</span>
                     </div>
-                    <a href="${post.file}" class="read-more">Read more</a>
                 </div>
-            </div>
+            </a>
         `;
     }
 
