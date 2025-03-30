@@ -32,25 +32,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const postCards = document.querySelectorAll('#post-list .post-card');
         return Array.from(postCards).map(card => {
             const title = card.querySelector('h3').textContent;
-            const excerpt = card.querySelector('p').textContent;
+            // No <p> excerpt in post-card, so use title as fallback for search
+            const excerpt = title; 
             const date = card.querySelector('.post-meta span:first-child')?.textContent.replace(/.*\s/, '') || new Date().toLocaleDateString();
             const readTime = card.querySelector('.post-meta span:last-child')?.textContent.replace(/.*\s/, '') || '3 min read';
             const image = card.querySelector('img')?.src || 'https://picsum.photos/800/400?random=' + Math.floor(Math.random() * 1000);
-            const category = card.querySelector('.post-category')?.textContent || 'News';
+            const file = card.getAttribute('href');
 
             return {
-                file: card.getAttribute('href'),
+                file,
                 title,
                 excerpt,
                 date,
                 readTime,
-                image,
-                category
+                image
             };
         });
     }
 
-    // Calculate reading time
+    // Calculate reading time (not used currently, but kept for future)
     function calculateReadingTime(text) {
         const wordsPerMinute = 200;
         const words = text.trim().split(/\s+/).length;
@@ -67,17 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Create post card HTML
+    // Create post card HTML (matches generatePostHtml from generateArticles.js)
     function createPostCard(post) {
         return `
             <a href="${post.file}" class="post-card">
-                <div class="post-image">
-                    <img src="${post.image}" alt="${post.title}">
-                </div>
+                <img src="${post.image}" alt="${post.title}">
                 <div class="post-content">
-                    <span class="post-category">${post.category}</span>
                     <h3>${post.title}</h3>
-                    <p>${post.excerpt}</p>
                     <div class="post-meta">
                         <span><i class="far fa-calendar"></i> ${formatDate(post.date)}</span>
                         <span><i class="far fa-clock"></i> ${post.readTime}</span>
@@ -99,7 +95,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 post.title.toLowerCase().includes(searchTerm) || 
                 post.excerpt.toLowerCase().includes(searchTerm)
             );
-            postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
+            if (postList) {
+                postList.innerHTML = filteredPosts.map(post => createPostCard(post)).join('');
+            }
 
             if (searchTerm.length > 0 && featuredContent) {
                 featuredContent.style.display = 'none';
@@ -117,10 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('No search inputs (#search or #mobile-search) found in the DOM');
     }
 
-    // Initialize post list
-    if (postList) {
-        postList.innerHTML = posts.map(post => createPostCard(post)).join('');
-    } else {
+    if (!postList) {
         console.error('Post list (#post-list) not found in the DOM');
     }
 });

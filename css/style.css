@@ -531,6 +531,16 @@ body.light-theme .post-tag {
     background-color: var(--bg-secondary);
 }
 
+/* Light theme adjustments for featured-overlay only */
+body.light-theme .featured-overlay {
+    background: rgba(255, 255, 255, 0.8); /* Lighter overlay for featured in light mode */
+}
+
+/* Ensure Latest Rekts overlay stays as original in light mode */
+body.light-theme .post-content {
+    background: rgba(0, 0, 0, 0.6); /* Preserve original dark overlay */
+}
+
 @media (max-width: 1024px) {
     main {
         grid-template-columns: 1fr;
@@ -596,6 +606,7 @@ body.light-theme .post-tag {
         display: none !important;
     }
 }
+
 .featured-image {
     width: 100%;
     height: 100%;
