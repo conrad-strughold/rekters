@@ -90,11 +90,30 @@ const fallbackTemplate = `
 </html>
 `;
 
+// List of local images
+const localImages = [
+    '/images/image1.png',
+    '/images/image2.png',
+    '/images/image3.png',
+    '/images/image4.png',
+    '/images/image5.png',
+    '/images/image6.png',
+    '/images/image7.png',
+    '/images/image8.png',
+    '/images/image9.png'
+];
+
+// Function to get a random local image
+function getRandomImage() {
+    const randomIndex = Math.floor(Math.random() * localImages.length);
+    return localImages[randomIndex];
+}
+
 // Function to generate featured story HTML
 function generateFeaturedHtml(article) {
     return `
         <a href="posts/${article.slug}.html" class="featured-card">
-            <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
+            <img src="${getRandomImage()}" alt="${article.title}">
             <div class="featured-content">
                 <h3>${article.title}</h3>
                 <div class="post-meta">
@@ -111,7 +130,7 @@ function generateFeaturedHtml(article) {
 function generatePostHtml(article) {
     return `
         <a href="posts/${article.slug}.html" class="post-card">
-            <img src="https://picsum.photos/800/400?random=${Math.floor(Math.random() * 1000)}" alt="${article.title}">
+            <img src="${getRandomImage()}" alt="${article.title}">
             <div class="post-content">
                 <h3>${article.title}</h3>
                 <p class="post-excerpt">${article.content[0].substring(0, 100)}...</p>
