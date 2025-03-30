@@ -101,7 +101,18 @@ const fallbackTemplate = `
 </html>
 `;
 
-// List of remote images hosted at rekters.com
+// List of cover images for featured article
+const featuredCoverImages = [
+    'https://www.rekters.com/images/cover1.png',
+    'https://www.rekters.com/images/cover2.png',
+    'https://www.rekters.com/images/cover3.png',
+    'https://www.rekters.com/images/cover4.png',
+    'https://www.rekters.com/images/cover5.png',
+    'https://www.rekters.com/images/cover6.png',
+    'https://www.rekters.com/images/cover7.png'
+];
+
+// List of remote images hosted at rekters.com for other sections
 const remoteImages = [
     'https://www.rekters.com/images/image1.png',
     'https://www.rekters.com/images/image2.png',
@@ -114,15 +125,21 @@ const remoteImages = [
     'https://www.rekters.com/images/image9.png'
 ];
 
-// Function to get a random remote image
+// Function to get a random cover image for featured article
+function getRandomCoverImage() {
+    const randomIndex = Math.floor(Math.random() * featuredCoverImages.length);
+    return featuredCoverImages[randomIndex];
+}
+
+// Function to get a random remote image for other sections
 function getRandomImage() {
     const randomIndex = Math.floor(Math.random() * remoteImages.length);
     return remoteImages[randomIndex];
 }
 
-// Function to generate featured story HTML
+// Function to generate featured story HTML using cover images
 function generateFeaturedHtml(article) {
-    const imageUrl = getRandomImage();
+    const imageUrl = getRandomCoverImage();
     return `
         <a href="posts/${article.slug}.html" class="featured-card">
             <div class="featured-image" style="background-image: url('${imageUrl}');">
@@ -251,7 +268,7 @@ if (!fs.existsSync(postsDir)) {
 articles.forEach(article => {
     const html = generateArticleHtml(article);
     const filePath = path.join(postsDir, `${article.slug}.html`);
-    fs.writeFileSync(filePath, html, 'utf8');
+    fs.writeFileSync(filePath, html, 'utf8'); // Correct encoding
 });
 
 // Update or create index.html
@@ -349,7 +366,7 @@ if (!updatedHtml.includes(`<h3>${featuredArticle.title}</h3>`)) {
 }
 
 // Write the updated index.html back to disk
-fs.writeFileSync(indexPath, updatedHtml, 'utf8');
+fs.writeFileSync(indexPath, updatedHtml, 'utf8'); // Correct encoding
 
 console.log('HTML files generated and index.html updated successfully.');
 console.log('Featured article:', featuredArticle.title);
